@@ -28,6 +28,10 @@ namespace WpfApp1
 			Departments.Add(new Department("Managment", Managment));
 	}
 
+		/// <summary>
+		/// Обновление СоmboBox с департаментами
+		/// </summary>
+		/// <param name="List"></param>
 		internal void Update(ComboBox List)
 		{
 			foreach (Department department in Departments)
@@ -36,6 +40,11 @@ namespace WpfApp1
 			}		
 		}
 
+		/// <summary>
+		/// Добавление департамента в список
+		/// </summary>
+		/// <param name="empName"></param>
+		/// <param name="depName"></param>
 		internal void AddEmployee(string empName, string depName)
 		{
 			for (int i = 0; i < Departments.Count; i++)
@@ -48,6 +57,11 @@ namespace WpfApp1
 			}
 		}
 
+		/// <summary>
+		/// Добавление рабочего в список департамента
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="List"></param>
 		internal void AddDepartment(string name, ComboBox List)
 		{
 			bool flag = true;
@@ -66,6 +80,11 @@ namespace WpfApp1
 			}
 		}
 
+		/// <summary>
+		/// Возвращает список работников Ввиде строки 
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
 		internal string GetEmployees(string text)
 		{
 			string emps = string.Empty;

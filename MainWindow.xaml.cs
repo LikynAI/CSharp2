@@ -33,17 +33,32 @@ namespace WpfApp1
 			emplbtn.Click += AddNewEmployee;
 		}
 
+		/// <summary>
+		/// Добавление нового департамента
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void AddNewEmployee(object sender, RoutedEventArgs e)
 		{
 			data.AddEmployee(AddEmployee.Text, Departments.Text);
 			EmpUpdate(Departments,new EventArgs());
 		}
 
+		/// <summary>
+		/// Добавление нового работника в выбранный в данный момент департамент
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void AddNewDepartment(object sender, RoutedEventArgs e)
 		{
 			data.AddDepartment(AddDepartment.Text,Departments);			
 		}
 
+		/// <summary>
+		/// Обновление TextBox'а со списком работников
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void EmpUpdate(object sender, EventArgs e)
 		{
 			Employees.Text = data.GetEmployees(Departments.Text);			
