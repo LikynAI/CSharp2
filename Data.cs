@@ -32,8 +32,9 @@ namespace WpfApp1
 		/// Обновление СоmboBox с департаментами
 		/// </summary>
 		/// <param name="List"></param>
-		internal void Update(ComboBox List)
+		internal void DepartmentUpdate(ComboBox List)
 		{
+			List.Items.Clear();
 			foreach (Department department in Departments)
 			{
 				List.Items.Add(department.name);
@@ -58,6 +59,40 @@ namespace WpfApp1
 		}
 
 		/// <summary>
+		/// Удаление сотрудника
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="index"></param>
+		internal void Delet(string text, int index)
+		{
+			if (!(index >= 0)) { return; }
+			for (int i = 0; i < Departments.Count; i++)
+			{
+				if (Departments[i].name == text)
+				{
+					Departments[i].emplist.RemoveAt(index);
+					break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Удаление депвртамента
+		/// </summary>
+		/// <param name="text"></param>
+		internal void Delet(string text)
+		{
+			for (int i = 0; i < Departments.Count; i++)
+			{
+				if (Departments[i].name == text)
+				{
+					Departments.RemoveAt(i);
+					break;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Добавление рабочего в список департамента
 		/// </summary>
 		/// <param name="name"></param>
@@ -76,7 +111,7 @@ namespace WpfApp1
 			{
 				Department newDepartment = new Department(name, new List<Emploee>());
 				Departments.Add(newDepartment);
-				List.Items.Add(newDepartment.name);
+				DepartmentUpdate(List);
 			}
 		}
 
@@ -85,21 +120,19 @@ namespace WpfApp1
 		/// </summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		internal string GetEmployees(string text)
+		internal void UpdateEmployees(ListBox employees, string text)
 		{
-			string emps = string.Empty;
+			employees.Items.Clear();
 			foreach (Department department in Departments)
 			{
 				if(department.name == text)
 				{
 					foreach (Emploee employee in department.emplist)
 					{
-						emps += employee.name + "\n";
+						employees.Items.Add(employee.name);
 					}
-					return emps;
 				}
 			}
-			return "Пусто";
 		}
 	}
 }

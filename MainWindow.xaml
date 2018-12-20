@@ -6,12 +6,14 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+	<Grid>
 		<ComboBox x:Name="Departments" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,10,0,0"/>
-		<TextBox x:Name="Employees" HorizontalAlignment="Left" Height="160" Margin="10,37,0,0" TextWrapping="Wrap" Text="Для отображения списка сотрудников выберите департамент" VerticalAlignment="Top" Width="120"/>
-		<TextBox x:Name="AddDepartment" HorizontalAlignment="Left" Height="23" Margin="355,9,0,0" TextWrapping="Wrap" Text="Добавление департамента" VerticalAlignment="Top" Width="160"/>
-		<TextBox x:Name="AddEmployee" HorizontalAlignment="Left" Height="23" Margin="355,46,0,0" TextWrapping="Wrap" Text="Добавление работника" VerticalAlignment="Top" Width="160"/>
-		<Button x:Name="depbtn" Content="Добавить" HorizontalAlignment="Left" Margin="520,10,0,0" VerticalAlignment="Top"	Width="75"/>
-		<Button x:Name="emplbtn" Content="Добавить" HorizontalAlignment="Left" Margin="520,46,0,0" VerticalAlignment="Top" Width="75"/>
+		<TextBox x:Name="AddDepartment" HorizontalAlignment="Left" Height="23" Margin="135,10,0,0" TextWrapping="Wrap" Text="Добавление департамента" VerticalAlignment="Top" Width="160"/>
+		<TextBox x:Name="AddEmployee" HorizontalAlignment="Left" Height="23" Margin="135,38,0,0" TextWrapping="Wrap" Text="Добавление работника" VerticalAlignment="Top" Width="160"/>
+		<Button x:Name="depbtn" Content="Добавить" HorizontalAlignment="Left" Margin="300,10,0,0" VerticalAlignment="Top"	Width="75" Click="depbtn_Click"/>
+		<Button x:Name="emplbtn" Content="Добавить" HorizontalAlignment="Left" Margin="300,37,0,0" VerticalAlignment="Top" Width="75" Click="emplbtn_Click"/>
+		<ListBox x:Name="Employees" HorizontalAlignment="Left" Height="153" Margin="10,37,0,0" VerticalAlignment="Top" Width="120"/>
+		<Button x:Name="DeletEmp" Content="DeletEmp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="380,37,0,0" Click="DeletEmp_Click"/>
+		<Button x:Name="DeletDep" Content="DeletDep " HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="380,10,0,0" Click="DeletDep_Click"/>
 	</Grid>
 </Window>

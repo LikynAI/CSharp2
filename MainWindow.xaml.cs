@@ -26,34 +26,12 @@ namespace WpfApp1
 		{
 			InitializeComponent();
 
-			data.Update(Departments);
+			data.DepartmentUpdate(Departments);
 
 			Departments.DropDownClosed += EmpUpdate;
-			depbtn.Click += AddNewDepartment;
-			emplbtn.Click += AddNewEmployee;
 		}
 
-		/// <summary>
-		/// Добавление нового департамента
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void AddNewEmployee(object sender, RoutedEventArgs e)
-		{
-			data.AddEmployee(AddEmployee.Text, Departments.Text);
-			EmpUpdate(Departments,new EventArgs());
-		}
-
-		/// <summary>
-		/// Добавление нового работника в выбранный в данный момент департамент
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void AddNewDepartment(object sender, RoutedEventArgs e)
-		{
-			data.AddDepartment(AddDepartment.Text,Departments);			
-		}
-
+		
 		/// <summary>
 		/// Обновление TextBox'а со списком работников
 		/// </summary>
@@ -61,7 +39,29 @@ namespace WpfApp1
 		/// <param name="e"></param>
 		private void EmpUpdate(object sender, EventArgs e)
 		{
-			Employees.Text = data.GetEmployees(Departments.Text);			
+			data.UpdateEmployees(Employees,Departments.Text);			
+		}
+
+		private void DeletDep_Click(object sender, RoutedEventArgs e)
+		{
+			data.Delet(Departments.Text);
+		}
+
+		private void DeletEmp_Click(object sender, RoutedEventArgs e)
+		{
+			data.Delet(Departments.Text, Employees.SelectedIndex);
+			EmpUpdate(Departments, new EventArgs());
+		}
+
+		private void depbtn_Click(object sender, RoutedEventArgs e)
+		{
+			data.AddDepartment(AddDepartment.Text, Departments);
+		}
+
+		private void emplbtn_Click(object sender, RoutedEventArgs e)
+		{
+			data.AddEmployee(AddEmployee.Text, Departments.Text);
+			EmpUpdate(Departments, new EventArgs());
 		}
 	}
 }
