@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,130 +10,46 @@ namespace WpfApp1
 {
 	class Data
 	{
-		public List<Department> Departments;
+		public ObservableCollection<Department> Departments;
+		public ObservableCollection<Emploee> Employees;
 
 		public Data()
 		{
-			Departments = new List<Department>();
-
-			List<Emploee> It = new List<Emploee>();
-			It.Add(new Emploee("Саша"));
-			It.Add(new Emploee("Коля"));
-			It.Add(new Emploee("Петя"));
-			Departments.Add(new Department("It", It));
-
-			List<Emploee> Managment = new List<Emploee>();
-			Managment.Add(new Emploee("Катя"));
-			Managment.Add(new Emploee("Вова"));
-			Managment.Add(new Emploee("Настя"));
-			Departments.Add(new Department("Managment", Managment));
-	}
-
-		/// <summary>
-		/// Обновление СоmboBox с департаментами
-		/// </summary>
-		/// <param name="List"></param>
-		internal void DepartmentUpdate(ComboBox List)
-		{
-			List.Items.Clear();
-			foreach (Department department in Departments)
+			Departments = new ObservableCollection<Department>();
+			Employees = new ObservableCollection<Emploee>();
+			for (int i = 1; i < 4; i++)
 			{
-				List.Items.Add(department.name);
-			}		
-		}
-
-		/// <summary>
-		/// Добавление департамента в список
-		/// </summary>
-		/// <param name="empName"></param>
-		/// <param name="depName"></param>
-		internal void AddEmployee(string empName, string depName)
-		{
-			for (int i = 0; i < Departments.Count; i++)
+				Departments.Add(new Department($"Департамент_{i}",i));
+			}
+			for (int i = 1; i < 4; i++)
 			{
-				if (Departments[i].name == depName)
+				for (int j = 1; j < 6; j++)
 				{
-					Departments[i].emplist.Add(new Emploee(empName));
-					break;
+					Employees.Add(new Emploee($"Имя_{i*j}", i*j,i));
 				}
 			}
 		}
-
-		/// <summary>
-		/// Удаление сотрудника
-		/// </summary>
-		/// <param name="text"></param>
-		/// <param name="index"></param>
-		internal void Delet(string text, int index)
+		public void Refresh(ListBox Employees, ComboBox Departments)
 		{
-			if (!(index >= 0)) { return; }
-			for (int i = 0; i < Departments.Count; i++)
-			{
-				if (Departments[i].name == text)
-				{
-					Departments[i].emplist.RemoveAt(index);
-					break;
-				}
-			}
+			Employees.ItemsSource = this.Employees.Where
+				(w => w.DepId == (Departments.SelectedValue as Department)?.id);
 		}
 
-		/// <summary>
-		/// Удаление депвртамента
-		/// </summary>
-		/// <param name="text"></param>
-		internal void Delet(string text)
+		public void DeletDep(ComboBox Departments)
 		{
-			for (int i = 0; i < Departments.Count; i++)
+			for (int i = 0; i < Employees.Count; i++)
 			{
-				if (Departments[i].name == text)
+				if (Employees[i].DepId == (Departments.SelectedItem as Department).id)
 				{
-					Departments.RemoveAt(i);
-					break;
+					Employees.Remove(Employees[i]);
 				}
 			}
+			this.Departments.Remove(Departments.SelectedItem as Department);
 		}
 
-		/// <summary>
-		/// Добавление рабочего в список департамента
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="List"></param>
-		internal void AddDepartment(string name, ComboBox List)
+		internal void AddDep(string name, int id)
 		{
-			bool flag = true;
-			foreach (Department department in Departments)
-			{
-				if (department.name == name)
-				{
-					flag = false;
-				}
-			}
-			if (flag)
-			{
-				Department newDepartment = new Department(name, new List<Emploee>());
-				Departments.Add(newDepartment);
-				DepartmentUpdate(List);
-			}
-		}
-
-		/// <summary>
-		/// Возвращает список работников Ввиде строки 
-		/// </summary>
-		/// <param name="text"></param>
-		/// <returns></returns>
-		internal void UpdateEmployees(ListBox employees, string text)
-		{
-			employees.Items.Clear();
-			foreach (Department department in Departments)
-			{
-				if(department.name == text)
-				{
-					foreach (Emploee employee in department.emplist)
-					{
-						employees.Items.Add(employee.name);
-					}
-				}
-			}
+			Departments.Add(new Department(name, id));
 		}
 	}
 }

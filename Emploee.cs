@@ -12,10 +12,19 @@ namespace WpfApp1
 	class Emploee
 	{
 		public string name;
+		public int id;
+		public int DepId;
 
-		public Emploee(string name)
+		public Emploee(string name, int id, int DepId)
 		{
 			this.name = name;
+			this.id = id;
+			this.DepId = DepId;
+		}
+
+		public override string ToString()
+		{
+			return name;
 		}
 	}
 }

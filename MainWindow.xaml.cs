@@ -20,48 +20,49 @@ namespace WpfApp1
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		Data data = new Data();
-
+		Data data;
 		public MainWindow()
 		{
 			InitializeComponent();
 
-			data.DepartmentUpdate(Departments);
-
-			Departments.DropDownClosed += EmpUpdate;
+			data = new Data();
+			Departments.ItemsSource = data.Departments;
+			Departments.SelectedIndex = 0;
+			this.DataContext = data;
 		}
 
-		
-		/// <summary>
-		/// Обновление TextBox'а со списком работников
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void EmpUpdate(object sender, EventArgs e)
+		private void Departments_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			data.UpdateEmployees(Employees,Departments.Text);			
+			data.Refresh(Employees, Departments);
+			if (!(Departments.SelectedItem is null))
+			{
+				iddep.Text = Convert.ToString((Departments.SelectedItem as Department).id);
+			}
 		}
 
-		private void DeletDep_Click(object sender, RoutedEventArgs e)
+		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			data.Delet(Departments.Text);
+			data.Employees.Remove(Employees.SelectedItem as Emploee);
+			data.Refresh(Employees, Departments);
 		}
 
-		private void DeletEmp_Click(object sender, RoutedEventArgs e)
+		private void depdel_Click(object sender, RoutedEventArgs e)
 		{
-			data.Delet(Departments.Text, Employees.SelectedIndex);
-			EmpUpdate(Departments, new EventArgs());
+			data.DeletDep(Departments);
+			Departments.SelectedIndex = 0;
 		}
 
-		private void depbtn_Click(object sender, RoutedEventArgs e)
+		private void AddDep_Click(object sender, RoutedEventArgs e)
 		{
-			data.AddDepartment(AddDepartment.Text, Departments);
+			data.AddDep(depname.Text,int.Parse(iddep.Text));
 		}
 
-		private void emplbtn_Click(object sender, RoutedEventArgs e)
+		private void depChange_Click(object sender, RoutedEventArgs e)
 		{
-			data.AddEmployee(AddEmployee.Text, Departments.Text);
-			EmpUpdate(Departments, new EventArgs());
+			data.Departments[data.Departments.IndexOf(Departments.SelectedItem as Department)].id
+				= int.Parse(iddep.Text);
+			data.Departments[data.Departments.IndexOf(Departments.SelectedItem as Department)].name
+				= depname.Text;
 		}
 	}
 }
