@@ -11,9 +11,9 @@ namespace WpfApp1
 	/// </summary>
 	class Emploee
 	{
-		public string name;
-		public int id;
-		public int DepId;
+		public string name { get; set; }
+		public int id { get; set; }
+		public int DepId { get; set; }
 
 		public Emploee(string name, int id, int DepId)
 		{

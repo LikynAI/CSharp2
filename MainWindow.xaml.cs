@@ -26,43 +26,33 @@ namespace WpfApp1
 			InitializeComponent();
 
 			data = new Data();
-			Departments.ItemsSource = data.Departments;
-			Departments.SelectedIndex = 0;
-			this.DataContext = data;
+			DepartmentsList.DataContext = data;
 		}
 
-		private void Departments_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void EmployeesListUpdate(object sender, SelectionChangedEventArgs e)
 		{
-			data.Refresh(Employees, Departments);
-			if (!(Departments.SelectedItem is null))
-			{
-				iddep.Text = Convert.ToString((Departments.SelectedItem as Department).id);
-			}
+			data.Refresh(EmployeesList, DepartmentsList);
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void AddDepartment(object sender, RoutedEventArgs e)
 		{
-			data.Employees.Remove(Employees.SelectedItem as Emploee);
-			data.Refresh(Employees, Departments);
+			data.AddDep(DepartmentName.Text,int.Parse(DepartmentId.Text));
 		}
 
-		private void depdel_Click(object sender, RoutedEventArgs e)
+		private void DeletDepartment(object sender, RoutedEventArgs e)
 		{
-			data.DeletDep(Departments);
-			Departments.SelectedIndex = 0;
+			data.DeletDep(DepartmentsList);
 		}
 
-		private void AddDep_Click(object sender, RoutedEventArgs e)
+		private void AddEmployee(object sender, RoutedEventArgs e)
 		{
-			data.AddDep(depname.Text,int.Parse(iddep.Text));
+			data.AddEmpl(EmployeeName.Text,int.Parse(EmployeeId.Text),int.Parse(EmployeeDepId.Text));
+			data.Refresh(EmployeesList, DepartmentsList);
 		}
 
-		private void depChange_Click(object sender, RoutedEventArgs e)
+		private void DeletEmployee(object sender, RoutedEventArgs e)
 		{
-			data.Departments[data.Departments.IndexOf(Departments.SelectedItem as Department)].id
-				= int.Parse(iddep.Text);
-			data.Departments[data.Departments.IndexOf(Departments.SelectedItem as Department)].name
-				= depname.Text;
+			data.DelEmployee(EmployeesList);
 		}
 	}
 }

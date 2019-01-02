@@ -8,8 +8,8 @@ namespace WpfApp1
 {
 	class Department
 	{
-		public string name;
-		public int id;
+		public string name { get; set; }
+		public int id { get; set; }
 
 		public Department(string name, int id)
 		{

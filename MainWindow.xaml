@@ -7,15 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 	<Grid>
-		<ComboBox x:Name="Departments" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,10,0,0" SelectionChanged="Departments_SelectionChanged" />
-		<ListBox x:Name="Employees" HorizontalAlignment="Left" Height="153" Margin="10,37,0,0" VerticalAlignment="Top" Width="120"/>
-		<TextBox x:Name="name" HorizontalAlignment="Left" Height="23" Margin="135,95,0,0" TextWrapping="Wrap" Text="{Binding ElementName=Employees, Path=SelectedItem, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
-		<Button x:Name="empdel" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="260,96,0,0" Click="Button_Click"/>
-		<TextBox x:Name="depid" HorizontalAlignment="Left" Height="23" Margin="135,123,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem, ElementName=Employees, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
-		<Button x:Name="depdel" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="340,11,0,0" RenderTransformOrigin="3.613,0.955" Click="depdel_Click"/>
-		<TextBox x:Name="depname" HorizontalAlignment="Left" Height="23" Margin="135,10,0,0" TextWrapping="Wrap" Text="{Binding ElementName=Departments, Path=SelectedItem}" VerticalAlignment="Top" Width="120"/>
-		<Button x:Name="AddDep" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="260,10,0,0" RenderTransformOrigin="3.613,0.955" Click="AddDep_Click"/>
-		<TextBox x:Name="iddep" HorizontalAlignment="Left" Height="23" Margin="135,38,0,0" TextWrapping="Wrap" Text="{}" VerticalAlignment="Top" Width="120"/>
-		<Button x:Name="empadd" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="340,95,0,0"/>
+
+		<ComboBox x:Name="DepartmentsList" HorizontalAlignment="Left" Margin="10,10,0,0" ItemsSource="{Binding Departments}"  VerticalAlignment="Top" Width="120" SelectionChanged="EmployeesListUpdate"/>
+		<TextBox x:Name="DepartmentId" HorizontalAlignment="Left" Height="23" Margin="10,65,0,0" TextWrapping="Wrap" DataContext="{Binding ElementName=DepartmentsList, Path=SelectedItem}" Text="{Binding id}" VerticalAlignment="Top" Width="120"/>
+		<TextBox x:Name="DepartmentName" HorizontalAlignment="Left" Height="23" Margin="10,37,0,0" TextWrapping="Wrap" DataContext="{Binding SelectedItem, ElementName=DepartmentsList}" Text="{Binding name}" VerticalAlignment="Top" Width="120"/>
+
+		<ListBox x:Name="EmployeesList" HorizontalAlignment="Left" Height="143" Margin="257,10,0,0" VerticalAlignment="Top" Width="120"/>
+		<TextBox x:Name="EmployeeId" HorizontalAlignment="Left" Height="23" Margin="382,38,0,0" TextWrapping="Wrap" DataContext="{Binding ElementName=EmployeesList, Path=SelectedItem}" Text="{Binding id}" VerticalAlignment="Top" Width="120"/>
+		<TextBox x:Name="EmployeeName" HorizontalAlignment="Left" Height="23" Margin="382,10,0,0" TextWrapping="Wrap" DataContext="{Binding ElementName=EmployeesList, Path=SelectedItem}" Text="{Binding name}" VerticalAlignment="Top" Width="120"/>
+		<TextBox x:Name="EmployeeDepId" HorizontalAlignment="Left" Height="23" Margin="382,66,0,0" TextWrapping="Wrap" DataContext="{Binding ElementName=EmployeesList, Path=SelectedItem }" Text="{Binding DepId}" VerticalAlignment="Top" Width="120"/>
+
+		<Button Content="AddDepartmentButton" HorizontalAlignment="Left" Margin="135,10,0,0" VerticalAlignment="Top" Width="75" Click="AddDepartment"/>
+		<Button Content="DeletDepartmentButton" HorizontalAlignment="Left" Margin="135,39,0,0" VerticalAlignment="Top" Width="75" Click="DeletDepartment"/>
+		
+		<Button Content="AddEmployeeButton" HorizontalAlignment="Left" Margin="382,102,0,0" VerticalAlignment="Top" Width="75" Click="AddEmployee"/>
+		<Button Content="DeletEmployeeButton" HorizontalAlignment="Left" Margin="382,131,0,0" VerticalAlignment="Top" Width="75" Click="DeletEmployee"/>
 	</Grid>
 </Window>
